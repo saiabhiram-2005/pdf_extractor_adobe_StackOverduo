@@ -6,7 +6,7 @@ Demonstrates all three sample test cases from the challenge with improved analys
 
 import json
 import time
-from simple_persona_system import EnhancedPersonaDocumentIntelligence
+from enhanced_persona_system import EnhancedPersonaDocumentIntelligence
 
 def run_test_case(case_name: str, persona: str, job: str, expected_focus: list):
     """Run a test case and display detailed analysis"""
@@ -35,15 +35,25 @@ def run_test_case(case_name: str, persona: str, job: str, expected_focus: list):
     print(f"  Requirements: {', '.join(job_analysis['requirements'])}")
     print(f"  Confidence: {job_analysis['confidence']}")
     
-    # Process documents
+    # Process documents - create sample input data structure
+    sample_input = {
+        "documents": [
+            {"filename": "sample_doc1.pdf", "title": "Sample Academic Paper 1"},
+            {"filename": "sample_doc2.pdf", "title": "Sample Academic Paper 2"},
+            {"filename": "sample_doc3.pdf", "title": "Sample Academic Paper 3"}
+        ],
+        "persona": {"role": persona},
+        "job_to_be_done": {"task": job}
+    }
+    
     start_time = time.time()
-    result = intelligence.process_sample_documents(persona, job)
+    result = intelligence.process_documents(sample_input)
     processing_time = time.time() - start_time
     
     print(f"\n⏱️  PERFORMANCE:")
     print(f"  Processing Time: {processing_time:.2f} seconds")
     print(f"  Sections Extracted: {len(result['extracted_sections'])}")
-    print(f"  Sub-sections Generated: {len(result['sub_section_analysis'])}")
+    print(f"  Sub-sections Generated: {len(result['subsection_analysis'])}")
     
     print(f"\n🏆 TOP RANKED SECTIONS:")
     for i, section in enumerate(result['extracted_sections'][:3], 1):
@@ -52,8 +62,8 @@ def run_test_case(case_name: str, persona: str, job: str, expected_focus: list):
         print(f"     Rank: {section['importance_rank']:.3f}")
     
     print(f"\n📝 SAMPLE SUB-SECTION ANALYSIS:")
-    if result['sub_section_analysis']:
-        sample = result['sub_section_analysis'][0]
+    if result['subsection_analysis']:
+        sample = result['subsection_analysis'][0]
         print(f"  Document: {sample['document']}")
         print(f"  Pages: {sample['page_number_constraints']}")
         print(f"  Text: {sample['refined_text'][:150]}...")
@@ -106,10 +116,10 @@ def main():
     
     for case_name, result in cases:
         sections = len(result['extracted_sections'])
-        sub_sections = len(result['sub_section_analysis'])
+        sub_sections = len(result['subsection_analysis'])
         avg_rank = sum(s['importance_rank'] for s in result['extracted_sections']) / max(1, sections)
-        persona_conf = result['metadata'].get('persona_confidence', 0)
-        job_conf = result['metadata'].get('job_confidence', 0)
+        persona_conf = result.get('persona_confidence', 0)
+        job_conf = result.get('job_confidence', 0)
         
         print(f"{case_name:<20} {sections:<10} {sub_sections:<12} {avg_rank:<10.3f} {persona_conf:<12} {job_conf:<10}")
     

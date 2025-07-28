@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Input/Output directories (should be created dynamically)
+input/
+output/
+*/input/
+*/output/
+
+# Generated files
+*.json
+!requirements.txt
+!package.json
+!tsconfig.json
+!**/input.json.example
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Docker volumes
+docker-volumes/
+
+# Test results
+test-results/
+coverage/
+.coverage
+.pytest_cache/
+
+# Challenge-specific generated files
+Challenge_1a/output/
+Challenge_1b/output/
+Challenge_1b/*_results.json
+Challenge_1b/challenge1b_output.json
+Challenge_1b/sample_test_results.json
+Challenge_1b/travel_test_results.json

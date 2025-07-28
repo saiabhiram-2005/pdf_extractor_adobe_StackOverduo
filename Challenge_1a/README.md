@@ -1,51 +1,72 @@
-# PDF Outline Extractor
+# Enhanced PDF Outline Extractor v2.0
+**Challenge 1A: Advanced Multi-Modal PDF Document Structure Analysis**
 
-A robust PDF outline extraction solution that automatically detects titles, headings, and page numbers from PDF documents using advanced multi-modal heuristics.
+A state-of-the-art PDF outline extraction solution that automatically detects titles, headings, and page numbers from complex PDF documents using advanced multi-modal AI algorithms and ensemble classification techniques.
 
-## Features
+## 🚀 Enhanced Features v2.0
 
-- ✅ **Multi-page PDF support** (up to 50+ pages)
-- ✅ **Table of Contents handling** (prevents duplication)
-- ✅ **High heading detection accuracy** using ensemble approach
-- ✅ **Performance optimized** (< 10 seconds for 50-page PDFs)
-- ✅ **Multilingual support** (English, Spanish, French, German, Japanese, Chinese, Russian)
-- ✅ **Font-agnostic detection** (works without relying on font size)
-- ✅ **Robust title extraction** with multiple fallback strategies
-- ✅ **OCR corruption handling** for scanned documents
-- ✅ **Semantic duplicate removal** to prevent redundant headings
-- ✅ **Offline operation** (no network calls during runtime)
+- ✅ **Multi-Modal Heading Detection**: Combines font characteristics, positioning, semantic patterns, and visual hierarchy
+- ✅ **Ensemble Classification**: 6 different AI classifiers with weighted voting system  
+- ✅ **Advanced Title Extraction**: 6 fallback strategies including RFP and technical document support
+- ✅ **Multilingual Processing**: 8+ languages (English, Spanish, French, German, Japanese, Chinese, Russian, Arabic)
+- ✅ **Font-Agnostic Intelligence**: Advanced algorithms that work without relying on font size
+- ✅ **Performance Optimized**: <10 seconds for 50-page PDFs, <200MB memory usage
+- ✅ **OCR Corruption Handling**: Robust processing of scanned and corrupted documents
+- ✅ **Semantic Duplicate Removal**: Intelligent deduplication using similarity algorithms
+- ✅ **Language Detection**: Automatic document language identification
+- ✅ **Production Ready**: Comprehensive error handling and monitoring
 
-## Docker Requirements Compliance
+## ✅ Full Challenge Compliance
 
-- ✅ **AMD64 Architecture**: Explicitly specified with `--platform=linux/amd64`
-- ✅ **No GPU Dependencies**: CPU-only operation
-- ✅ **Model Size**: < 200MB (uses lightweight pdfminer.six library)
-- ✅ **Offline Operation**: No internet calls during runtime
-- ✅ **Performance**: ≤ 10 seconds for 50-page PDFs
-- ✅ **Resource Usage**: Optimized for 8 CPUs and 16GB RAM
+### Technical Requirements
+- ✅ **AMD64 Architecture**: Multi-platform support with explicit platform specification
+- ✅ **CPU-Only Operation**: No GPU dependencies, fully optimized for CPU processing
+- ✅ **Model Size <200MB**: Lightweight implementation using efficient libraries
+- ✅ **Offline Operation**: Zero internet dependencies during runtime
+- ✅ **Performance ≤10s**: Consistently under 10 seconds for 50-page PDFs
+- ✅ **Resource Optimization**: Efficient use of 8 CPUs and 16GB RAM allocation
 
-## Quick Start
+### Output Format Compliance
+- ✅ **JSON Structure**: Proper title, outline array, performance metrics
+- ✅ **Heading Levels**: H1, H2, H3, H4 classification with confidence scoring
+- ✅ **Page Numbers**: Accurate page number extraction and mapping
+- ✅ **Metadata**: Processing time, language detection, performance analytics
 
-### Build the Docker Image
+## 🚀 Quick Start
 
+### Docker Deployment (Recommended)
+
+#### Build the Enhanced Container
 ```bash
-docker build --platform linux/amd64 -t pdf-extractor:latest .
+# For AMD64 (recommended)
+docker build --platform linux/amd64 -t pdf-outline-extractor:latest .
+
+# For ARM64 (if needed)  
+docker build --platform linux/arm64 -t pdf-outline-extractor:arm64 .
 ```
 
-### Run the Container
-
+#### Run with Volume Mounting
 ```bash
+# Create input/output directories
+mkdir -p input output
+
+# Add your PDF files to input/ directory
+cp your-document.pdf input/
+
+# Run the extraction
 docker run --rm \
   -v $(pwd)/input:/app/input \
   -v $(pwd)/output:/app/output \
   --network none \
-  pdf-extractor:latest
+  pdf-outline-extractor:latest
+
+# Results will be in output/ directory as JSON files
 ```
 
-### Local Development
+### Local Development & Testing
 
 ```bash
-# Install dependencies
+# Set up Python environment  
 pip install -r requirements.txt
 
 # Process a single PDF

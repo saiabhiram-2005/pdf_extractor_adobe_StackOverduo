@@ -6,6 +6,8 @@ Enhanced PDF Outline Extractor with better debugging and error handling
 import json
 import os
 import sys
+import glob
+import traceback
 from pathlib import Path
 import re
 import time
@@ -1531,7 +1533,7 @@ def main():
                 print(f"✓ Completed: {os.path.basename(pdf_file)} -> {os.path.basename(output_file)}")
                 successful_processing += 1
         
-    except Exception as e:
+            except Exception as e:
                 print(f"✗ Failed: {os.path.basename(pdf_file)} - {str(e)}")
                 failed_processing += 1
         

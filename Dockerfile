@@ -16,19 +16,20 @@ COPY requirements.txt .
 # Install Python dependencies (no network calls during runtime)
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the main scripts
-COPY extract_outline.py .
-COPY persona_document_intelligence.py .
+# Copy all project files
+COPY Challenge_1a/ ./Challenge_1a/
+COPY Challenge_1b/ ./Challenge_1b/
+COPY PROJECT_ORGANIZATION.md .
+COPY README.md .
 
-# Create input and output directories
-RUN mkdir -p /app/input /app/output
-
-# Make the scripts executable
-RUN chmod +x extract_outline.py persona_document_intelligence.py
+# Create input and output directories for both challenges
+RUN mkdir -p /app/input /app/output \
+    /app/Challenge_1a/input /app/Challenge_1a/output \
+    /app/Challenge_1b/input /app/Challenge_1b/output
 
 # Set environment variables for offline operation
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-# Set the default command to process PDFs with persona-driven intelligence
-CMD ["python", "persona_document_intelligence.py", "--persona", "researcher", "--job", "literature review"]
+# Default command shows available options
+CMD ["echo", "PDF Document Intelligence Solutions - Use specific challenge Docker images:\n- Challenge_1a: docker build -t pdf-outline-extractor ./Challenge_1a\n- Challenge_1b: docker build -t persona-intelligence ./Challenge_1b"]

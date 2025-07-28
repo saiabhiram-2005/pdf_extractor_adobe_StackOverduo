@@ -1,0 +1,27 @@
+{
+  "challenge_info": {
+    "challenge_id": "round_1b_001",
+    "test_case_name": "academic_research",
+    "description": "Academic Research Analysis"
+  },
+  "documents": [
+    {
+      "filename": "research_paper_1.pdf",
+      "title": "Graph Neural Networks for Drug Discovery"
+    },
+    {
+      "filename": "research_paper_2.pdf", 
+      "title": "Transformer Architectures Comparison"
+    },
+    {
+      "filename": "research_paper_3.pdf",
+      "title": "Recommendation Systems Evaluation"
+    }
+  ],
+  "persona": {
+    "role": "PhD Researcher in Computational Biology"
+  },
+  "job_to_be_done": {
+    "task": "Prepare a comprehensive literature review focusing on methodologies, datasets, and performance benchmarks for developing a new ML model"
+  }
+}

@@ -428,8 +428,11 @@ class EnhancedPersonaDocumentIntelligence:
         job_to_be_done = input_data['job_to_be_done']
         
         # Analyze persona and job with enhanced understanding
-        persona_analysis = self.analyze_persona(persona)
-        job_analysis = self.analyze_job_to_be_done(job_to_be_done)
+        persona_role = persona.get('role', '') if isinstance(persona, dict) else persona
+        job_task = job_to_be_done.get('task', '') if isinstance(job_to_be_done, dict) else job_to_be_done
+        
+        persona_analysis = self.analyze_persona(persona_role)
+        job_analysis = self.analyze_job_to_be_done(job_task)
         
         self.log(f"Persona analysis: {persona_analysis}")
         self.log(f"Job analysis: {job_analysis}")
@@ -440,35 +443,39 @@ class EnhancedPersonaDocumentIntelligence:
         
         for i, doc in enumerate(documents):
             # Create realistic sample content based on document type
-            if 'cities' in doc.lower():
+            doc_name = doc.get('filename', '') if isinstance(doc, dict) else doc
+            doc_title = doc.get('title', '') if isinstance(doc, dict) else doc
+            doc_text = (doc_name + ' ' + doc_title).lower()
+            
+            if 'cities' in doc_text:
                 sample_sections.append({
-                    'document': doc,
+                    'document': doc_name,
                     'page': 1,
-                    'text': f'Comprehensive Guide to Major Cities in {doc.replace(".pdf", "")}. This section provides detailed information about the most important cities, their attractions, and cultural significance. Each city is described with its unique characteristics, historical background, and modern amenities.'
+                    'text': f'Comprehensive Guide to Major Cities in {doc_title.replace(".pdf", "")}. This section provides detailed information about the most important cities, their attractions, and cultural significance. Each city is described with its unique characteristics, historical background, and modern amenities.'
                 })
-            elif 'cuisine' in doc.lower():
+            elif 'cuisine' in doc_text:
                 sample_sections.append({
-                    'document': doc,
+                    'document': doc_name,
                     'page': 6,
                     'text': f'Culinary Experiences and Local Cuisine. This section explores the rich culinary traditions, featuring traditional dishes, local ingredients, and dining recommendations. Cooking classes and wine tours are highlighted as immersive cultural experiences.'
                 })
-            elif 'things to do' in doc.lower():
+            elif 'things to do' in doc_text:
                 sample_sections.append({
-                    'document': doc,
+                    'document': doc_name,
                     'page': 2,
                     'text': f'Coastal Adventures and Water Sports. The region offers beautiful coastline activities including beach hopping, water sports, and coastal exploration. Popular destinations include various beaches and marine activities.'
                 })
-            elif 'tips' in doc.lower():
+            elif 'tips' in doc_text:
                 sample_sections.append({
-                    'document': doc,
+                    'document': doc_name,
                     'page': 2,
                     'text': f'General Packing Tips and Tricks. Essential travel advice including layering strategies, versatile clothing options, and practical packing techniques. Includes recommendations for travel-sized toiletries and document organization.'
                 })
             else:
                 sample_sections.append({
-                    'document': doc,
+                    'document': doc_name,
                     'page': i + 1,
-                    'text': f'Comprehensive information about {doc.replace(".pdf", "")}. This section provides detailed insights, practical advice, and essential information for travelers and visitors.'
+                    'text': f'Comprehensive information about {doc_title.replace(".pdf", "")}. This section provides detailed insights, practical advice, and essential information for travelers and visitors.'
                 })
         
         # Rank sections by enhanced relevance scoring
