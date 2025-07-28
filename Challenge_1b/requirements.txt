@@ -1,3 +1,0 @@
-pdfminer.six==20231228
-# No additional dependencies needed - using only standard library modules
-# for the persona-driven document intelligence system 
