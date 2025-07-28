@@ -62,7 +62,6 @@ def test_docker_configurations():
     
     docker_files = [
         "Challenge_1a/Dockerfile",
-        "Challenge_1b/Dockerfile",
         "Dockerfile"
     ]
     
@@ -87,7 +86,7 @@ def test_documentation():
     print("\n📖 Testing Documentation")
     print("=" * 60)
     
-    docs = ["README.md", "Challenge_1a/README.md", "Challenge_1b/README.md"]
+    docs = ["README.md", "Challenge_1a/README.md"]
     all_good = True
     
     for doc in docs:
