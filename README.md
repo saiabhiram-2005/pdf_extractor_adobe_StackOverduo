@@ -137,7 +137,220 @@ docker run --rm \
   persona-doc-intelligence:latest
 ```
 
-## 📊 Sample Test Scenarios
+## � Sample Input and Output Formats
+
+### Challenge 1A: PDF Outline Extraction
+
+#### Sample Input
+```bash
+# Input: PDF file (any complex document)
+python extract_outline.py research_paper.pdf
+```
+
+#### Sample Output (JSON)
+```json
+{
+  "document_title": "Graph Neural Networks for Drug Discovery: A Comprehensive Survey",
+  "total_pages": 24,
+  "language": "en",
+  "outline": [
+    {
+      "level": 1,
+      "title": "Abstract",
+      "page": 1,
+      "confidence": 0.95
+    },
+    {
+      "level": 1,
+      "title": "1. Introduction",
+      "page": 2,
+      "confidence": 0.98
+    },
+    {
+      "level": 2,
+      "title": "1.1 Background and Motivation",
+      "page": 2,
+      "confidence": 0.92
+    },
+    {
+      "level": 2,
+      "title": "1.2 Research Objectives",
+      "page": 3,
+      "confidence": 0.89
+    },
+    {
+      "level": 1,
+      "title": "2. Methodology",
+      "page": 5,
+      "confidence": 0.96
+    },
+    {
+      "level": 2,
+      "title": "2.1 Data Collection",
+      "page": 6,
+      "confidence": 0.91
+    },
+    {
+      "level": 1,
+      "title": "3. Results and Discussion",
+      "page": 12,
+      "confidence": 0.97
+    },
+    {
+      "level": 1,
+      "title": "4. Conclusion",
+      "page": 20,
+      "confidence": 0.94
+    },
+    {
+      "level": 1,
+      "title": "References",
+      "page": 22,
+      "confidence": 0.99
+    }
+  ],
+  "extraction_metadata": {
+    "processing_time": 8.3,
+    "total_headings": 9,
+    "confidence_avg": 0.94,
+    "extraction_method": "ensemble_classification"
+  }
+}
+```
+
+### Challenge 1B: Persona-Driven Document Intelligence
+
+#### Sample Input (input.json)
+```json
+{
+  "challenge_info": {
+    "challenge_id": "round_1b_001",
+    "test_case_name": "academic_research",
+    "description": "Academic Research Analysis"
+  },
+  "documents": [
+    {
+      "filename": "research_paper_1.pdf",
+      "title": "Graph Neural Networks for Drug Discovery"
+    },
+    {
+      "filename": "research_paper_2.pdf", 
+      "title": "Transformer Architectures Comparison"
+    },
+    {
+      "filename": "research_paper_3.pdf",
+      "title": "Recommendation Systems Evaluation"
+    }
+  ],
+  "persona": {
+    "role": "PhD Researcher in Computational Biology",
+    "expertise": "Machine Learning, Drug Discovery",
+    "experience_level": "Senior"
+  },
+  "job_to_be_done": {
+    "task": "Prepare a comprehensive literature review focusing on methodologies, datasets, and performance benchmarks for developing a new ML model",
+    "priority": "High",
+    "deadline": "2 weeks"
+  }
+}
+```
+
+#### Sample Output (output.json)
+```json
+{
+  "metadata": {
+    "input_documents": [
+      "research_paper_1.pdf",
+      "research_paper_2.pdf", 
+      "research_paper_3.pdf"
+    ],
+    "persona": {
+      "role": "PhD Researcher in Computational Biology",
+      "expertise": "Machine Learning, Drug Discovery",
+      "experience_level": "Senior"
+    },
+    "job_to_be_done": {
+      "task": "Prepare a comprehensive literature review focusing on methodologies, datasets, and performance benchmarks for developing a new ML model",
+      "priority": "High",
+      "deadline": "2 weeks"
+    },
+    "processing_timestamp": "2025-07-28T12:08:05.138258",
+    "persona_confidence": 0.95,
+    "job_confidence": 0.87,
+    "total_processing_time": 0.032
+  },
+  "extracted_sections": [
+    {
+      "document": "research_paper_1.pdf",
+      "section_title": "Graph Neural Network Methodology for Molecular Property Prediction",
+      "importance_rank": 9,
+      "page_number": 3,
+      "relevance_score": 0.94,
+      "content_category": "methodology"
+    },
+    {
+      "document": "research_paper_2.pdf",
+      "section_title": "Transformer Architecture Performance Benchmarks on Biological Datasets",
+      "importance_rank": 8,
+      "page_number": 7,
+      "relevance_score": 0.89,
+      "content_category": "benchmarks"
+    },
+    {
+      "document": "research_paper_3.pdf",
+      "section_title": "Evaluation Metrics and Dataset Characteristics for Recommendation Systems",
+      "importance_rank": 7,
+      "page_number": 4,
+      "relevance_score": 0.85,
+      "content_category": "datasets"
+    },
+    {
+      "document": "research_paper_1.pdf",
+      "section_title": "Comparative Analysis of Graph Convolution Methods",
+      "importance_rank": 6,
+      "page_number": 12,
+      "relevance_score": 0.82,
+      "content_category": "results"
+    }
+  ],
+  "subsection_analysis": [
+    {
+      "document": "research_paper_1.pdf",
+      "refined_text": "The graph neural network architecture employs message passing mechanisms to aggregate molecular features. This methodology demonstrates superior performance on drug-target interaction prediction tasks with 94% accuracy on benchmark datasets.",
+      "page_number": 3,
+      "content_type": "methodology_detail",
+      "relevance_factors": ["machine_learning", "drug_discovery", "performance_metrics"]
+    },
+    {
+      "document": "research_paper_2.pdf", 
+      "refined_text": "Transformer models achieve state-of-the-art results on biological sequence analysis tasks. The attention mechanism captures long-range dependencies crucial for protein structure prediction with significant computational efficiency improvements.",
+      "page_number": 7,
+      "content_type": "benchmark_result",
+      "relevance_factors": ["benchmarks", "performance_comparison", "computational_biology"]
+    },
+    {
+      "document": "research_paper_3.pdf",
+      "refined_text": "The evaluation framework incorporates precision, recall, and F1-score metrics across multiple biological datasets. Dataset characteristics include 50K protein sequences with verified annotations and cross-validation protocols.",
+      "page_number": 4,
+      "content_type": "dataset_description", 
+      "relevance_factors": ["evaluation_metrics", "dataset_quality", "validation_methodology"]
+    }
+  ],
+  "analysis_summary": {
+    "top_priorities": ["methodology", "benchmarks", "datasets"],
+    "content_distribution": {
+      "methodology": 35,
+      "benchmarks": 25,
+      "datasets": 20,
+      "results": 15,
+      "literature": 5
+    },
+    "recommendation": "Focus on methodology sections for comprehensive understanding, supplement with benchmark comparisons and dataset characteristics"
+  }
+}
+```
+
+## �📊 Sample Test Scenarios
 
 ### Challenge 1B Enhanced Test Cases
 
